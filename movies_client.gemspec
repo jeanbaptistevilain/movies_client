@@ -6,10 +6,10 @@ require 'movies_client/version'
 Gem::Specification.new do |spec|
   spec.name          = "movies_client"
   spec.version       = MoviesClient::VERSION
-  spec.authors       = ["jeanbaptistevilain"]
-  spec.email         = ["jbvilain@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.authors       = ["jeanbaptistevilain","SimonRonzani"]
+  spec.email         = ["jbvilain@gmail.com","ronzani.simon@gmail.com"]
+  spec.description   = "specific parser for cinema and showtimes information"
+  spec.summary       = "Parse ods file with roo, get information about movie from the TMDB API"
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "test-unit"
+  spec.add_development_dependency "shoulda"
+  spec.add_development_dependency "roo"
+  spec.add_development_dependency "spreadsheet", "1.0.0"
+  spec.add_development_dependency "themoviedb"
 end
