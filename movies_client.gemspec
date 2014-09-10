@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jbvilain@gmail.com","ronzani.simon@gmail.com"]
   spec.description   = "specific parser for cinema and showtimes information"
   spec.summary       = "Parse ods file with roo, get information about movie from the TMDB API"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/jeanbaptistevilain/movies_client"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
