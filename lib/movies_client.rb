@@ -29,6 +29,7 @@ module MoviesClient
     @result = {}
     @daily_schedule = {}
     day = {}
+    film = {}
     lastrow = s.last_row
     lastcolumn = s.last_column
     y = 2
@@ -45,46 +46,109 @@ module MoviesClient
         value = s.cell(y,x)
 
         if s.cell(y, 3).nil?
-          key = s.cell(y-1, 3).gsub(/[^\d]/, '')
-          flag = true #second line of a date
+          key = s.cell(y-1, 3).gsub(/[^\d]/, '').to_s
+          flagline = true # second line of a date
         else
-          key = s.cell(y, 3).gsub(/[^\d]/, '')
-          flag = false #first line of a date
+          key = s.cell(y, 3).gsub(/[^\d]/, '').to_s
+          flagline = false #first line of a date
         end
 
-        if x == 1
-          if flag == false
-            day[:horaire1] = value
-          elsif flag == true
-            day[:horaire2] = value
-          end
-        end
-        if x == 2
-          if flag == false
-            day[:film1] = value
-          elsif flag == true
-            day[:film3] = value
-          end
-        end
-        if x == 3 and flag == false
-          day[:date] = value
-        end
-        if x == 5
-          if flag == false
-            day[:film2] = value
-          elsif flag == true
-            day[:film4] = value
-          end
+        case x
+          when 1
+            if flagline == false
+              day[:horaire1] = value
+            elsif flagline == true
+              day[:horaire2] = value
+            end
+          when 2
+            if flagline == false
+              day[:film1] = value
+              unless film.has_key?(value)
+                unless value.nil?
+                  if value.include? ':'
+                    value.sub!(':', ' ')
+                  end
+                  if value.include? "'"
+                    value.sub!("'", ' ')
+                  end
+                  if value.include? ","
+                    value.sub!(",", '')
+                  end
+                  value_escaped = CGI::escape(value)
+                  film.store(value,[value_escaped])
+                end
+              end
+            elsif flagline == true
+              day[:film3] = value
+              unless film.has_key?(value)
+                unless value.nil?
+                  if value.include? ':'
+                    value.sub!(':', ' ')
+                  end
+                  if value.include? "'"
+                    value.sub!("'", ' ')
+                  end
+                  if value.include? ","
+                    value.sub!(",", '')
+                  end
+                  value_escaped = CGI::escape(value)
+                  film.store(value,[value_escaped])
+                end
+              end
+            end
+          when 3
+            unless flagline == true
+              day[:date] = value
+            end
+          when 5
+            if flagline == false
+              day[:film2] = value
+              unless film.has_key?(value)
+                unless value.nil?
+                  if value.include? ':'
+                    value.sub!(':', ' ')
+                  end
+                  if value.include? "'"
+                    value.sub!("'", ' ')
+                  end
+                  if value.include? ","
+                    value.sub!(",", '')
+                  end
+                  value_escaped = CGI::escape(value)
+                  film.store(value,[value_escaped])
+                end
+              end
+            elsif flagline == true
+              day[:film4] = value
+              unless film.has_key?(value)
+                unless value.nil?
+                  if value.include? ':'
+                    value.sub!(':', ' ')
+                  end
+                  if value.include? "'"
+                    value.sub!("'", ' ')
+                  end
+                  if value.include? ","
+                    value.sub!(",", '')
+                  end
+                  value_escaped = CGI::escape(value)
+                  film.store(value,[value_escaped])
+                end
+              end
+            end
+          else
+            # cellule non traité
         end
         x += 1
       end
       @daily_schedule.store( key, day)
-      if flag == true
+      if flagline == true
         day = {}
       end
       y +=1
     end
     @result.store( :daily_schedule, @daily_schedule)
+    @result.store( :result, film)
     @result
   end
 
@@ -108,73 +172,106 @@ module MoviesClient
 
       while x != lastcolumn+1 do
 
-        value = s.cell(y,x) #used for daily_schedule
-        value_from_cell = s.cell(y,x) # used for movie list
+        value = s.cell(y,x)
 
         if s.cell(y, 3).nil?
-          key = s.cell(y-1, 3).gsub(/[^\d]/, '')
-
+          key = s.cell(y-1, 3).gsub(/[^\d]/, '').to_s
           flagline = true # second line of a date
-
-          if key == date
-            flagdate = true # first line of the day researched'
-          else
-            flagdate = false # first line of a day not researched'
-          end
-
         else
-          key = s.cell(y, 3).gsub(/[^\d]/, '')
+          key = s.cell(y, 3).gsub(/[^\d]/, '').to_s
           flagline = false #first line of a date
-
-          if key == date
-            flagdate = true #second line of the day researched'
-          else
-            flagdate = false #second line of a day not researched'
-          end
-
         end
 
-        if x == 2 or x == 5 and flagdate == true
-          unless film.has_key?(value_from_cell)
-            unless value_from_cell.nil?
-              if value_from_cell.include? ':'
-                value_from_cell.sub!(':', ' ')
-              end
-              if value_from_cell.include? "'"
-                value_from_cell.sub!("'", ' ')
-              end
-              if value_from_cell.include? ","
-                value_from_cell.sub!(",", '')
-              end
-              value_escaped = CGI::escape(value_from_cell)
-              film.store(value_from_cell,[value_escaped])
+        case key
+          when date
+            case x
+              when 1
+                if flagline == false
+                  day[:horaire1] = value
+                elsif flagline == true
+                  day[:horaire2] = value
+                end
+              when 2
+                if flagline == false
+                  day[:film1] = value
+                  unless film.has_key?(value)
+                    unless value.nil?
+                      if value.include? ':'
+                        value.sub!(':', ' ')
+                      end
+                      if value.include? "'"
+                        value.sub!("'", ' ')
+                      end
+                      if value.include? ","
+                        value.sub!(",", '')
+                      end
+                      value_escaped = CGI::escape(value)
+                      film.store(value,[value_escaped])
+                    end
+                  end
+                elsif flagline == true
+                  day[:film3] = value
+                  unless film.has_key?(value)
+                    unless value.nil?
+                      if value.include? ':'
+                        value.sub!(':', ' ')
+                      end
+                      if value.include? "'"
+                        value.sub!("'", ' ')
+                      end
+                      if value.include? ","
+                        value.sub!(",", '')
+                      end
+                      value_escaped = CGI::escape(value)
+                      film.store(value,[value_escaped])
+                    end
+                  end
+                end
+              when 3
+                unless flagline == true
+                  day[:date] = value
+                end
+              when 5
+                if flagline == false
+                  day[:film2] = value
+                  unless film.has_key?(value)
+                    unless value.nil?
+                      if value.include? ':'
+                        value.sub!(':', ' ')
+                      end
+                      if value.include? "'"
+                        value.sub!("'", ' ')
+                      end
+                      if value.include? ","
+                        value.sub!(",", '')
+                      end
+                      value_escaped = CGI::escape(value)
+                      film.store(value,[value_escaped])
+                    end
+                  end
+                elsif flagline == true
+                  day[:film4] = value
+                  unless film.has_key?(value)
+                    unless value.nil?
+                      if value.include? ':'
+                        value.sub!(':', ' ')
+                      end
+                      if value.include? "'"
+                        value.sub!("'", ' ')
+                      end
+                      if value.include? ","
+                        value.sub!(",", '')
+                      end
+                      value_escaped = CGI::escape(value)
+                      film.store(value,[value_escaped])
+                    end
+                  end
+                end
+              else
+                # cellule non traité
             end
-          end
-        end
-
-        if x == 1 and flagdate == true
-          if flagline == false
-            day[:horaire1] = value
-          elsif flagline == true
-            day[:horaire2] = value
-          end
-        end
-        if x == 2 and flagdate == true
-          if flagline == false
-            day[:film1] = value
-          elsif flagline == true
-            day[:film3] = value
-          end
-        end
-        if x == 3 and flagline == false and flagdate == true
-          day[:date] = value
-        end
-        if x == 5 and flagdate == true
-          if flagline == false
-            day[:film2] = value
-          elsif flagline == true
-            day[:film4] = value
-          end
+          else
+            # date non traité
         end
         x += 1
       end
@@ -191,6 +288,7 @@ module MoviesClient
     @result
   end
 
+  ############################DEPRECATED#################################################""
   def self.get_movie
     s = Roo::OpenOffice.new(@config[:prog], ods_options: {encoding: Encoding::UTF_8})
     film = {}
@@ -201,7 +299,9 @@ module MoviesClient
     while y != lastrow  do
       x = 1
       while x != lastcolumn+1 do
+
         value_from_cell = s.cell(y,x)
+        key = s.cell(y,x)
 
         if x == 2 or x == 5
           unless film.has_key?(value_from_cell)
@@ -216,7 +316,12 @@ module MoviesClient
                 value_from_cell.sub!(",", '')
               end
               value = CGI::escape(value_from_cell)
-              film.store(value_from_cell,[value])
+              puts '________________'
+              puts value_from_cell
+              puts value
+              puts key
+              puts '________________'
+              film.store(key,[value])
             end
           end
         end
