@@ -288,50 +288,6 @@ module MoviesClient
     @result
   end
 
-  ############################DEPRECATED#################################################""
-  def self.get_movie
-    s = Roo::OpenOffice.new(@config[:prog], ods_options: {encoding: Encoding::UTF_8})
-    film = {}
-    lastrow = s.last_row
-    lastcolumn = s.last_column
-    y = 2
-
-    while y != lastrow  do
-      x = 1
-      while x != lastcolumn+1 do
-
-        value_from_cell = s.cell(y,x)
-        key = s.cell(y,x)
-
-        if x == 2 or x == 5
-          unless film.has_key?(value_from_cell)
-            unless value_from_cell.nil?
-              if value_from_cell.include? ':'
-                value_from_cell.sub!(':', ' ')
-              end
-              if value_from_cell.include? "'"
-                value_from_cell.sub!("'", ' ')
-              end
-              if value_from_cell.include? ","
-                value_from_cell.sub!(",", '')
-              end
-              value = CGI::escape(value_from_cell)
-              puts '________________'
-              puts value_from_cell
-              puts value
-              puts key
-              puts '________________'
-              film.store(key,[value])
-            end
-          end
-        end
-        x += 1
-      end
-      y += 1
-    end
-    film
-  end
-
   def self.get_movie_details(id)
     Tmdb::Api.key(@config[:key])
     Tmdb::Api.language("fr")
@@ -413,10 +369,8 @@ module MoviesClient
     MoviesClient.configure_api_key(key)
     #Parse the whole ods file
     @programme = MoviesClient.parse_ods
-    #Get the movie list
-    movie_list = MoviesClient.get_movie
     #Get the movie information from the list
-    @movie_info = MoviesClient.get_movie_info_from_list(movie_list, size)
+    @movie_info = MoviesClient.get_movie_info_from_list(@programme[:result], size)
     #Assemble programme with movie information
     @result = MoviesClient.assemble_prog_with_info(@programme, @movie_info)
     #Return a CinemaObject
