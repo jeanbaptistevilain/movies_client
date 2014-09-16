@@ -345,8 +345,9 @@ module MoviesClient
       result[:title] = movie.title
       result[:title_list] = k
       result[:synopsis] = movie.overview
-      result[:tagline] = movie.tagline
-      puts movie.tagline
+      unless movie.tagline == ''
+        result[:tagline] = movie.tagline
+      end
       unless movie.genres.nil?
         result[:genre] = movie.genres.collect { |g| g[:name] }
       end
