@@ -313,6 +313,7 @@ module MoviesClient
     Tmdb::Api.key(@config[:key])
     Tmdb::Api.language("fr")
     @casts = Tmdb::Movie.casts(id)
+    @credits = Tmdb::Movie.credits(id)
     @casting = {}
     actor = {}
     i = 0
@@ -344,6 +345,8 @@ module MoviesClient
       result[:title] = movie.title
       result[:title_list] = k
       result[:synopsis] = movie.overview
+      result[:tagline] = movie.tagline
+      puts movie.tagline
       unless movie.genres.nil?
         result[:genre] = movie.genres.collect { |g| g[:name] }
       end
