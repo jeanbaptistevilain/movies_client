@@ -85,7 +85,35 @@ class MoviesObject
   end
 
   def director(movie)
-    @result[movie.to_s][:credits][:credit]["Director"][0]
+    @result[movie.to_s][:credits][:credit]["Director"]
   end
+
+  def author(movie)
+    @result[movie.to_s][:credits][:credit]["Author"]
+  end
+
+  def producer(movie)
+    @result[movie.to_s][:credits][:credit]["Producer"]
+  end
+
+  def original_music_composer(movie)
+    @result[movie.to_s][:credits][:credit]["Original Music Composer"]
+  end
+
+  def director_of_photography(movie)
+    @result[movie.to_s][:credits][:credit]["Director of Photography"]
+  end
+
+  def editor(movie)
+    @result[movie.to_s][:credits][:credit]["Editor"]
+  end
+
+  def novel(movie)
+    @result[movie.to_s][:credits][:credit]["Novel"]
+  end
+
+
+
+
 
 end
