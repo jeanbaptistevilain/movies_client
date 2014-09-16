@@ -309,6 +309,18 @@ module MoviesClient
     end
   end
 
+  def self.get_trailer(id)
+    Tmdb::Api.key(@config[:key])
+    Tmdb::Api.language("fr")
+    trailer = Tmdb::Movie.trailers(id)
+    link = ''
+    unless trailer["youtube"][0].nil?
+      source = trailer["youtube"][0]["source"]
+      link = 'https://www.youtube.com/watch?v='+source.to_s
+    end
+    link
+  end
+
   def self.get_credits(id)
     Tmdb::Api.key(@config[:key])
     Tmdb::Api.language("fr")
@@ -325,7 +337,6 @@ module MoviesClient
       end
     end
     @credits.store(:credit, cred)
-    puts @credits
     @credits
   end
 
@@ -362,6 +373,7 @@ module MoviesClient
       movie = MoviesClient.get_movie_details(id)
       casting = MoviesClient.get_movie_casts(id)
       credits = MoviesClient.get_credits(id)
+      trailer = MoviesClient.get_trailer(id)
       result[:id] = id
       result[:title] = movie.title
       result[:title_list] = k
@@ -371,6 +383,9 @@ module MoviesClient
       end
       unless movie.release_date == ''
         result[:release_date] = movie.release_date
+      end
+      unless trailer == ''
+        result[:trailer] = trailer
       end
       unless movie.genres.nil?
         result[:genre] = movie.genres.collect { |g| g[:name] }
