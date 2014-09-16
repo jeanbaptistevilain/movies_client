@@ -76,4 +76,8 @@ class MoviesObject
     @result[movie.to_s][:genre]
   end
 
+  def tagline(movie)
+    @result[movie.to_s][:tagline]
+  end
+
 end
