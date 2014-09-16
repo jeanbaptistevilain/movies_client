@@ -104,6 +104,7 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal "Paris. 28 premiers jours du printemps. 11 femmes.\r M\u00E8res de famille, femmes d'affaires, copines, ma\u00EEtresses ou \u00E9pouses...\r Toutes repr\u00E9sentent une facette de la femme d'aujourd'hui : Complexes, joyeuses, complex\u00E9es, explosives, insolentes, surprenantes... Bref, un \u00EAtre paradoxal, totalement d\u00E9boussol\u00E9, d\u00E9finitivement vivant, FEMMES tout simplement !", @movie_info["SOUS LES JUPES DES FILLES"][:synopsis]
     assert_equal 'http://image.tmdb.org/t/p/w500//qtdx6rnatFNT3xSXcQzGzRAX24H.jpg', @movie_info["SOUS LES JUPES DES FILLES"][:poster]
     assert_equal 'Comédie', @movie_info["SOUS LES JUPES DES FILLES"][:genre][0]
+    assert_equal 'Bienvenue dans la Jungle !', @movie_info["RIO 2"][:tagline]
     assert_equal 'Isabelle Adjani', @movie_info["SOUS LES JUPES DES FILLES"][:casting][0][:name]
   end
 
