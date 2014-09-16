@@ -309,11 +309,31 @@ module MoviesClient
     end
   end
 
+  def self.get_credits(id)
+    Tmdb::Api.key(@config[:key])
+    Tmdb::Api.language("fr")
+    @credit = Tmdb::Movie.credits(id)
+    @credits = {}
+    cred = {}
+    @credit["crew"].each do |r|
+      key = r["job"]
+      value = r["name"]
+      if cred.has_key?(key)
+        cred[key] << value
+      else
+        cred.store(key, [value])
+      end
+    end
+    @credits.store(:credit, cred)
+    puts @credits
+    @credits
+  end
+
   def self.get_movie_casts(id)
     Tmdb::Api.key(@config[:key])
     Tmdb::Api.language("fr")
     @casts = Tmdb::Movie.casts(id)
-    @credits = Tmdb::Movie.credits(id)
+    @credit = Tmdb::Movie.credits(id)
     @casting = {}
     actor = {}
     i = 0
@@ -341,12 +361,16 @@ module MoviesClient
       id = MoviesClient.get_id_from_title(v)
       movie = MoviesClient.get_movie_details(id)
       casting = MoviesClient.get_movie_casts(id)
+      credits = MoviesClient.get_credits(id)
       result[:id] = id
       result[:title] = movie.title
       result[:title_list] = k
       result[:synopsis] = movie.overview
       unless movie.tagline == ''
         result[:tagline] = movie.tagline
+      end
+      unless movie.release_date == ''
+        result[:release_date] = movie.release_date
       end
       unless movie.genres.nil?
         result[:genre] = movie.genres.collect { |g| g[:name] }
@@ -355,6 +379,7 @@ module MoviesClient
         result[:poster] = 'http://image.tmdb.org/t/p/'+size+'/'+movie.poster_path
       end
       result[:casting] = casting
+      result[:credits] = credits
       @listresult.store(k, result)
       result = {}
     end
