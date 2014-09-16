@@ -84,6 +84,10 @@ class MoviesObject
     @result[movie.to_s][:release_date]
   end
 
+  def trailer(movie)
+    @result[movie.to_s][:trailer]
+  end
+
   def director(movie)
     @result[movie.to_s][:credits][:credit]["Director"]
   end
