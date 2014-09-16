@@ -80,4 +80,12 @@ class MoviesObject
     @result[movie.to_s][:tagline]
   end
 
+  def release_date(movie)
+    @result[movie.to_s][:release_date]
+  end
+
+  def director(movie)
+    @result[movie.to_s][:credits][:credit]["Director"][0]
+  end
+
 end
