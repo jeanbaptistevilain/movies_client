@@ -68,4 +68,12 @@ class MoviesObject
     @result[movie.to_s][:synopsis]
   end
 
+  def casting(movie)
+    @result[movie.to_s][:casting]
+  end
+
+  def genre(movie)
+    @result[movie.to_s][:genre]
+  end
+
 end

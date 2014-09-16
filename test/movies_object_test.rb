@@ -25,5 +25,7 @@ class MovieObjectTest < Test::Unit::TestCase
     assert_equal 'SOUS LES JUPES DES FILLES'  , @cinema_object.title_list(@cinema_object.film1(5))
     assert_equal "Paris. 28 premiers jours du printemps. 11 femmes.\r M\u00E8res de famille, femmes d'affaires, copines, ma\u00EEtresses ou \u00E9pouses...\r Toutes repr\u00E9sentent une facette de la femme d'aujourd'hui : Complexes, joyeuses, complex\u00E9es, explosives, insolentes, surprenantes... Bref, un \u00EAtre paradoxal, totalement d\u00E9boussol\u00E9, d\u00E9finitivement vivant, FEMMES tout simplement !"  , @cinema_object.overview(@cinema_object.film1(5))
     assert_equal 'http://image.tmdb.org/t/p/w500//qtdx6rnatFNT3xSXcQzGzRAX24H.jpg'  , @cinema_object.poster(@cinema_object.film1(5))
+    assert_equal 'Sous les jupes des filles'  , @cinema_object.casting(@cinema_object.film1(5))
+    assert_equal 'Sous les jupes des filles'  , @cinema_object.genre(@cinema_object.film1(5))
   end
 end
