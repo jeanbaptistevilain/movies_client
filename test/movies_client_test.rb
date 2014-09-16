@@ -92,6 +92,13 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal 'Tyler Durden', @cast[1][:role]
   end
 
+  should 'get the trailer of a movie from his id' do
+    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
+    link = MoviesClient.get_trailer(550)
+
+    assert_equal 'https://www.youtube.com/watch?v=1UqSD-jSC58', link
+  end
+
   should 'get the credits of a movie from his id' do
     MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
     @cred = MoviesClient.get_credits(550)
