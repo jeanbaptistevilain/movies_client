@@ -92,6 +92,13 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal 'Tyler Durden', @cast[1][:role]
   end
 
+  should 'get the credits of a movie from his id' do
+    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
+    @cred = MoviesClient.get_credits(550)
+
+    assert_equal 'David Fincher', @cred[:credit]["Director"][0]
+  end
+
   should 'get information about movie from the list' do
     list = {"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"], "DEUX JOURS UNE NUIT"=>["DEUX+JOURS+UNE+NUIT"], "DE TOUTES NOS FORCES"=>["DE+TOUTES+NOS+FORCES"], "QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"=>["QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F"], "RIO 2"=>["RIO+2"], "BARBECUE"=>["BARBECUE"], "LA LISTE DE MES ENVIES"=>["LA+LISTE+DE+MES+ENVIES"], "DRAGONS 2"=>["DRAGONS+2"], "MALEFIQUE"=>["MALEFIQUE"], "ON A FAILLI \u00CATRE AMIES"=>["ON+A+FAILLI+%C3%8ATRE+AMIES"], "LA RITOURNELLE"=>["LA+RITOURNELLE"], "LES VACANCES DU PETIT NICOLAS"=>["LES+VACANCES+DU+PETIT+NICOLAS"], "TRANSFORMERS L AGE DE L'EXTINCTION"=>["TRANSFORMERS+L+AGE+DE+L%27EXTINCTION"], "TRANSCENDANCE"=>["TRANSCENDANCE"], "PLANES 2"=>["PLANES+2"]}
 
@@ -105,6 +112,7 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal 'http://image.tmdb.org/t/p/w500//qtdx6rnatFNT3xSXcQzGzRAX24H.jpg', @movie_info["SOUS LES JUPES DES FILLES"][:poster]
     assert_equal 'Comédie', @movie_info["SOUS LES JUPES DES FILLES"][:genre][0]
     assert_equal 'Bienvenue dans la Jungle !', @movie_info["RIO 2"][:tagline]
+    assert_equal '2014-04-11', @movie_info["RIO 2"][:release_date]
     assert_equal 'Isabelle Adjani', @movie_info["SOUS LES JUPES DES FILLES"][:casting][0][:name]
   end
 
