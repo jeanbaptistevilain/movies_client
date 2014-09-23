@@ -55,14 +55,14 @@ module MoviesClient
 
         case x
           when 1
-            if flagline == false
-              day[:horaire1] = value
-            elsif flagline == true
+            if flagline
               day[:horaire2] = value
+            else
+              day[:horaire1] = value
             end
           when 2
-            if flagline == false
-              day[:film1] = value
+            if flagline
+              day[:film3] = value
               unless film.has_key?(value)
                 unless value.nil?
                   if value.include? ':'
@@ -78,8 +78,8 @@ module MoviesClient
                   film.store(value,[value_escaped])
                 end
               end
-            elsif flagline == true
-              day[:film3] = value
+            else
+              day[:film1] = value
               unless film.has_key?(value)
                 unless value.nil?
                   if value.include? ':'
@@ -97,12 +97,12 @@ module MoviesClient
               end
             end
           when 3
-            unless flagline == true
+            unless flagline
               day[:date] = value
             end
           when 5
-            if flagline == false
-              day[:film2] = value
+            if flagline
+              day[:film4] = value
               unless film.has_key?(value)
                 unless value.nil?
                   if value.include? ':'
@@ -118,8 +118,8 @@ module MoviesClient
                   film.store(value,[value_escaped])
                 end
               end
-            elsif flagline == true
-              day[:film4] = value
+            else
+              day[:film2] = value
               unless film.has_key?(value)
                 unless value.nil?
                   if value.include? ':'
@@ -141,8 +141,8 @@ module MoviesClient
         end
         x += 1
       end
-      @daily_schedule.store( key, day)
-      if flagline == true
+      @daily_schedule.store(key, day)
+      if flagline
         day = {}
       end
       y +=1
@@ -186,10 +186,10 @@ module MoviesClient
           when date
             case x
               when 1
-                if flagline == false
-                  day[:horaire1] = value
-                elsif flagline == true
+                if flagline
                   day[:horaire2] = value
+                else
+                  day[:horaire1] = value
                 end
               when 2
                 if flagline == false
