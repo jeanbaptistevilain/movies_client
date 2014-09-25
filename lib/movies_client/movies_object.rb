@@ -20,6 +20,10 @@ class MoviesObject
     @cinema2
   end
 
+  def whole_day(day)
+    @daily_schedule[day.to_s]
+  end
+
   def date(day)
     @daily_schedule[day.to_s][:date]
   end
