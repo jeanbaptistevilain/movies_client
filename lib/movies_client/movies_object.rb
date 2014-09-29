@@ -120,8 +120,4 @@ class MoviesObject
     @result[movie.to_s][:credits][:credit]["Novel"]
   end
 
-
-
-
-
 end

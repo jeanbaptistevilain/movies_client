@@ -6,13 +6,10 @@ require "themoviedb"
 
 module MoviesClient
 
-  # defaults info
-  @config = { :prog => '../../data/PROG_GB_JUILLET_2014.ods',
-              :key => ''
+  # defaults information
+  @config = { :prog => "../../data/PROG_GB_JUILLET_2014.ods",
+              :key => ""
   }
-
-  #defaults key
-  key = '7f0b035c164b74d6eec69ebcd8ff8d12'
 
   def self.configure_file_path(path)
     @config[:prog] = path
@@ -369,15 +366,20 @@ module MoviesClient
     result = {}
     @listresult = {}
     list.each_pair do |k, v|
-      id = MoviesClient.get_id_from_title(v)
-      movie = MoviesClient.get_movie_details(id)
+      id      = MoviesClient.get_id_from_title(v)
+      movie   = MoviesClient.get_movie_details(id)
       casting = MoviesClient.get_movie_casts(id)
       credits = MoviesClient.get_credits(id)
       trailer = MoviesClient.get_trailer(id)
+
       result[:id] = id
-      result[:title] = movie.title
       result[:title_list] = k
-      result[:synopsis] = movie.overview
+      unless movie.title == ''
+        result[:title] = movie.title
+      end
+      unless movie.overview == ''
+        result[:synopsis] = movie.overview
+      end
       unless movie.tagline == ''
         result[:tagline] = movie.tagline
       end
@@ -393,8 +395,13 @@ module MoviesClient
       unless movie.poster_path.nil?
         result[:poster] = 'http://image.tmdb.org/t/p/'+size+'/'+movie.poster_path
       end
-      result[:casting] = casting
-      result[:credits] = credits
+      unless casting.nil?
+        result[:casting] = casting
+      end
+      unless credits.nil?
+        result[:credits] = credits
+      end
+
       @listresult.store(k, result)
       result = {}
     end
@@ -407,33 +414,21 @@ module MoviesClient
   end
 
   def self.get_info(path, key, size)
-    #Configure file path
     MoviesClient.configure_file_path(path)
-    #Configure api key
     MoviesClient.configure_api_key(key)
-    #Parse the whole ods file
-    @programme = MoviesClient.parse_ods
-    #Get the movie information from the list
-    @movie_info = MoviesClient.get_movie_info_from_list(@programme[:result], size)
-    #Assemble programme with movie information
-    @result = MoviesClient.assemble_prog_with_info(@programme, @movie_info)
-    #Return a CinemaObject
+    @programme     = MoviesClient.parse_ods
+    @movie_info    = MoviesClient.get_movie_info_from_list(@programme[:result], size)
+    @result        = MoviesClient.assemble_prog_with_info(@programme, @movie_info)
     @cinema_object = MoviesObject.new(@result)
     @cinema_object
   end
 
   def self.select_daily_program(path, key, size, date)
-    #Configure file path
     MoviesClient.configure_file_path(path)
-    #Configure api key
     MoviesClient.configure_api_key(key)
-    #Parse the ods file in function of the parameter day and nb of day
     @result = MoviesClient.parse_ods_with_day(date)
-    #Get the movie information from the list
     @movie_info = MoviesClient.get_movie_info_from_list(@result[:result], size)
-    #Assemble programme with movie information
     @result = MoviesClient.assemble_prog_with_info(@result, @movie_info)
-    #Return a CinemaObject
     @cinema_object = MoviesObject.new(@result)
     @cinema_object
   end
