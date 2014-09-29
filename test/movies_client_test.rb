@@ -77,7 +77,7 @@ class MoviesClientTest < Test::Unit::TestCase
 
   should 'get id from title' do
     MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    @movie = MoviesClient.get_id_from_title('SOUS LES JUPES DES FILLES')
+    @movie = MoviesClient.get_id_from_title('Fight Club')
 
     assert_equal 273169, @movie
   end

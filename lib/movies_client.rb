@@ -302,7 +302,18 @@ module MoviesClient
     if @movie.nil?
       puts title
     else
-      @movie[0][:id]
+      f = @movie.length
+      i = 0
+      while i != f
+        unless @movie[i][:release_date] == ''
+          date = Date.parse @movie[i][:release_date]
+          if date.year == Date.today.year or date.year == Date.today.prev_year
+            @movie_id = @movie[i][:id]
+          end
+        end
+        i += 1
+      end
+      @movie_id
     end
   end
 
