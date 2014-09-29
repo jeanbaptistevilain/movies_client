@@ -309,6 +309,8 @@ module MoviesClient
           date = Date.parse @movie[i][:release_date]
           if date.year == Date.today.year or date.year == Date.today.prev_year
             @movie_id = @movie[i][:id]
+          else
+            @movie_id = @movie[0][:id]
           end
         end
         i += 1
