@@ -20,92 +20,6 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal '7f0b035c164b74d6eec69ebcd8ff8d12', key
   end
 
-  should 'parse ods file ' do
-    result_expected = {:mois=>"JUILLET", :cinema1=>"LES RHODOS VILLAGE", :cinema2=>"LE CHARMIEUX CHINAILLON", :daily_schedule=>{"5"=>{:horaire1=>"17h30", :film1=>"SOUS LES JUPES DES FILLES", :date=>"SAM 5", :film2=>"BABYSITTING", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"BABYSITTING"}, "6"=>{:horaire1=>"17h30", :film1=>"DEUX JOURS UNE NUIT", :date=>"DIM 6", :film2=>"SOUS LES JUPES DES FILLES", :horaire2=>"21H", :film3=>"DE TOUTES NOS FORCES", :film4=>"SOUS LES JUPES DES FILLES"}, "7"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"LUN 7", :film2=>"RIO 2", :horaire2=>"21H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"DE TOUTES NOS FORCES"}, "8"=>{:horaire1=>"17h30", :film1=>"BARBECUE", :date=>"MAR 8", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21H", :film3=>"BABYSITTING", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "9"=>{:horaire1=>"17h30", :film1=>"LA LISTE DE MES ENVIES", :date=>"MER 9", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"MALEFIQUE", :film4=>"BARBECUE"}, "10"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"JEU 10", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"LA LISTE DE MES ENVIES"}, "11"=>{:horaire1=>"17h30", :film1=>"RIO 2", :date=>"VEN 11", :film2=>"SOUS LES JUPES DES FILLES", :horaire2=>"21 H", :film3=>"ON A FAILLI \u00CATRE AMIES", :film4=>"DEUX JOURS UNE NUIT"}, "12"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"SAM 12", :film2=>"BABYSITTING", :horaire2=>"21 H", :film3=>"LA RITOURNELLE", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "13"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"DIM 13 ", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>nil, :film3=>nil, :film4=>nil}, "14"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"LUN 14", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"LA LISTE DE MES ENVIES", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "15"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"MAR 15", :film2=>"LA RITOURNELLE", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"LA LISTE DE MES ENVIES"}, "16"=>{:horaire1=>"17h30", :film1=>"DEUX JOURS UNE NUIT", :date=>"MER 16", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"ON A FAILLI \u00CATRE AMIES", :film4=>"SOUS LES JUPES DES FILLES"}, "17"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"JEU 17", :film2=>"RIO 2", :horaire2=>"21H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "18"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"VEN 18", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "19"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"SAM 19", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "20"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"DIM 20", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "21"=>{:horaire1=>"17h30", :film1=>"RIO 2", :date=>"LUN 21", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"TRANSCENDANCE", :film4=>"SOUS LES JUPES DES FILLES"}, "22"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"MAR 22", :film2=>"RIO 2", :horaire2=>"21 H", :film3=>"LA RITOURNELLE", :film4=>"TRANSCENDANCE"}, "23"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"MER 23", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"LA RITOURNELLE"}, "24"=>{:horaire1=>"17h30", :film1=>"DE TOUTES NOS FORCES", :date=>"JEU 24", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "25"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"VEN 25", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "26"=>{:horaire1=>"17h30", :film1=>"PLANES 2", :date=>"SAM 26", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"TRANSCENDANCE", :film4=>"SOUS LES JUPES DES FILLES"}, "27"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"DIM 27", :film2=>"PLANES 2", :horaire2=>"21 H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "28"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"LUN 28", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "29"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"MAR 29", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "30"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"MER 30", :film2=>"DE TOUTES NOS FORCES", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "31"=>{:horaire1=>"17h30", :film1=>"PLANES 2", :date=>"JEU 31", :film2=>"DRAGONS 2"}}, :result=>{"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"], "DEUX JOURS UNE NUIT"=>["DEUX+JOURS+UNE+NUIT"], "DE TOUTES NOS FORCES"=>["DE+TOUTES+NOS+FORCES"], "QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"=>["QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F"], "RIO 2"=>["RIO+2"], "BARBECUE"=>["BARBECUE"], "LA LISTE DE MES ENVIES"=>["LA+LISTE+DE+MES+ENVIES"], "DRAGONS 2"=>["DRAGONS+2"], "MALEFIQUE"=>["MALEFIQUE"], "ON A FAILLI \u00CATRE AMIES"=>["ON+A+FAILLI+%C3%8ATRE+AMIES"], "LA RITOURNELLE"=>["LA+RITOURNELLE"], "LES VACANCES DU PETIT NICOLAS"=>["LES+VACANCES+DU+PETIT+NICOLAS"], "TRANSFORMERS L AGE DE L'EXTINCTION"=>["TRANSFORMERS+L+AGE+DE+L%27EXTINCTION"], "TRANSCENDANCE"=>["TRANSCENDANCE"], "PLANES 2"=>["PLANES+2"]}}
-    daily_schedule = {"5"=>{:horaire1=>"17h30", :film1=>"SOUS LES JUPES DES FILLES", :date=>"SAM 5", :film2=>"BABYSITTING", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"BABYSITTING"}, "6"=>{:horaire1=>"17h30", :film1=>"DEUX JOURS UNE NUIT", :date=>"DIM 6", :film2=>"SOUS LES JUPES DES FILLES", :horaire2=>"21H", :film3=>"DE TOUTES NOS FORCES", :film4=>"SOUS LES JUPES DES FILLES"}, "7"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"LUN 7", :film2=>"RIO 2", :horaire2=>"21H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"DE TOUTES NOS FORCES"}, "8"=>{:horaire1=>"17h30", :film1=>"BARBECUE", :date=>"MAR 8", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21H", :film3=>"BABYSITTING", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "9"=>{:horaire1=>"17h30", :film1=>"LA LISTE DE MES ENVIES", :date=>"MER 9", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"MALEFIQUE", :film4=>"BARBECUE"}, "10"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"JEU 10", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"LA LISTE DE MES ENVIES"}, "11"=>{:horaire1=>"17h30", :film1=>"RIO 2", :date=>"VEN 11", :film2=>"SOUS LES JUPES DES FILLES", :horaire2=>"21 H", :film3=>"ON A FAILLI \u00CATRE AMIES", :film4=>"DEUX JOURS UNE NUIT"}, "12"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"SAM 12", :film2=>"BABYSITTING", :horaire2=>"21 H", :film3=>"LA RITOURNELLE", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "13"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"DIM 13 ", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>nil, :film3=>nil, :film4=>nil}, "14"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"LUN 14", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"LA LISTE DE MES ENVIES", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "15"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"MAR 15", :film2=>"LA RITOURNELLE", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"LA LISTE DE MES ENVIES"}, "16"=>{:horaire1=>"17h30", :film1=>"DEUX JOURS UNE NUIT", :date=>"MER 16", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"ON A FAILLI \u00CATRE AMIES", :film4=>"SOUS LES JUPES DES FILLES"}, "17"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"JEU 17", :film2=>"RIO 2", :horaire2=>"21H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "18"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"VEN 18", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "19"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"SAM 19", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "20"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"DIM 20", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "21"=>{:horaire1=>"17h30", :film1=>"RIO 2", :date=>"LUN 21", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"TRANSCENDANCE", :film4=>"SOUS LES JUPES DES FILLES"}, "22"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"MAR 22", :film2=>"RIO 2", :horaire2=>"21 H", :film3=>"LA RITOURNELLE", :film4=>"TRANSCENDANCE"}, "23"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"MER 23", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"LA RITOURNELLE"}, "24"=>{:horaire1=>"17h30", :film1=>"DE TOUTES NOS FORCES", :date=>"JEU 24", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "25"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"VEN 25", :film2=>"MALEFIQUE", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "26"=>{:horaire1=>"17h30", :film1=>"PLANES 2", :date=>"SAM 26", :film2=>"DRAGONS 2", :horaire2=>"21 H", :film3=>"TRANSCENDANCE", :film4=>"SOUS LES JUPES DES FILLES"}, "27"=>{:horaire1=>"17h30", :film1=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :date=>"DIM 27", :film2=>"PLANES 2", :horaire2=>"21 H", :film3=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :film4=>"ON A FAILLI \u00CATRE AMIES"}, "28"=>{:horaire1=>"17h30", :film1=>"LES VACANCES DU PETIT NICOLAS", :date=>"LUN 28", :film2=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?", :horaire2=>"21 H", :film3=>"LES VACANCES DU PETIT NICOLAS", :film4=>"QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"}, "29"=>{:horaire1=>"17h30", :film1=>"MALEFIQUE", :date=>"MAR 29", :film2=>"LES VACANCES DU PETIT NICOLAS", :horaire2=>"21 H", :film3=>"TRANSFORMERS L AGE DE L'EXTINCTION", :film4=>"LES VACANCES DU PETIT NICOLAS"}, "30"=>{:horaire1=>"17h30", :film1=>"DRAGONS 2", :date=>"MER 30", :film2=>"DE TOUTES NOS FORCES", :horaire2=>"21 H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"TRANSFORMERS L AGE DE L'EXTINCTION"}, "31"=>{:horaire1=>"17h30", :film1=>"PLANES 2", :date=>"JEU 31", :film2=>"DRAGONS 2"}}
-    result = {"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"], "DEUX JOURS UNE NUIT"=>["DEUX+JOURS+UNE+NUIT"], "DE TOUTES NOS FORCES"=>["DE+TOUTES+NOS+FORCES"], "QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"=>["QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F"], "RIO 2"=>["RIO+2"], "BARBECUE"=>["BARBECUE"], "LA LISTE DE MES ENVIES"=>["LA+LISTE+DE+MES+ENVIES"], "DRAGONS 2"=>["DRAGONS+2"], "MALEFIQUE"=>["MALEFIQUE"], "ON A FAILLI \u00CATRE AMIES"=>["ON+A+FAILLI+%C3%8ATRE+AMIES"], "LA RITOURNELLE"=>["LA+RITOURNELLE"], "LES VACANCES DU PETIT NICOLAS"=>["LES+VACANCES+DU+PETIT+NICOLAS"], "TRANSFORMERS L AGE DE L'EXTINCTION"=>["TRANSFORMERS+L+AGE+DE+L%27EXTINCTION"], "TRANSCENDANCE"=>["TRANSCENDANCE"], "PLANES 2"=>["PLANES+2"]}
-
-    MoviesClient.configure_file_path('C:\Users\Simon\Desktop\Stage\GitHub\movies_client\data\PROG_GB_JUILLET_2014.ods')
-    @result = MoviesClient.parse_ods
-    puts @result
-    assert_equal daily_schedule ,               @result[:daily_schedule]
-    assert_equal result,                        @result[:result]
-    assert_equal result_expected ,              @result
-    assert_equal 'JUILLET' ,                    @result[:mois]
-    assert_equal 'LES RHODOS VILLAGE' ,         @result[:cinema1]
-    assert_equal 'LE CHARMIEUX CHINAILLON' ,    @result[:cinema2]
-    assert_equal 'SAM 5' ,                      @result[:daily_schedule]["5"][:date]
-    assert_equal '17h30' ,                      @result[:daily_schedule]["5"][:horaire1]
-    assert_equal '21H' ,                        @result[:daily_schedule]["5"][:horaire2]
-    assert_equal 'SOUS LES JUPES DES FILLES' ,  @result[:daily_schedule]["5"][:film1]
-    assert_equal 'BABYSITTING' ,                @result[:daily_schedule]["5"][:film2]
-    assert_equal 'SOUS LES JUPES DES FILLES' ,  @result[:daily_schedule]["5"][:film3]
-    assert_equal 'BABYSITTING' ,                @result[:daily_schedule]["5"][:film4]
-    assert_equal 'SOUS+LES+JUPES+DES+FILLES' ,  @result[:result][@result[:daily_schedule]["5"][:film3]][0]
-    assert_equal 'QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F' ,  @result[:result][@result[:daily_schedule]["7"][:film3]][0]
-  end
-
-  should 'parse ods file with day information ' do
-    result_expected = {:mois=>"JUILLET", :cinema1=>"LES RHODOS VILLAGE", :cinema2=>"LE CHARMIEUX CHINAILLON", :daily_schedule=>{"5"=>{:horaire1=>"17h30", :film1=>"SOUS LES JUPES DES FILLES", :date=>"SAM 5", :film2=>"BABYSITTING", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"BABYSITTING"}}, :result=>{"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"]}}
-
-    MoviesClient.configure_file_path('C:\Users\Simon\Desktop\Stage\GitHub\movies_client\data\PROG_GB_JUILLET_2014.ods')
-    @result = MoviesClient.parse_ods_with_day('5')
-    puts @result
-    assert_equal result_expected ,              @result
-    assert_equal 'JUILLET' ,                    @result[:mois]
-    assert_equal 'LES RHODOS VILLAGE' ,         @result[:cinema1]
-    assert_equal 'LE CHARMIEUX CHINAILLON' ,    @result[:cinema2]
-    assert_equal 'SAM 5' ,                      @result[:daily_schedule]["5"][:date]
-    assert_equal '17h30' ,                      @result[:daily_schedule]["5"][:horaire1]
-    assert_equal '21H' ,                        @result[:daily_schedule]["5"][:horaire2]
-    assert_equal 'SOUS LES JUPES DES FILLES' ,  @result[:daily_schedule]["5"][:film1]
-    assert_equal 'BABYSITTING' ,                @result[:daily_schedule]["5"][:film2]
-    assert_equal 'SOUS LES JUPES DES FILLES' ,  @result[:daily_schedule]["5"][:film3]
-    assert_equal 'BABYSITTING' ,                @result[:daily_schedule]["5"][:film4]
-    assert_equal 'SOUS+LES+JUPES+DES+FILLES' ,  @result[:result][@result[:daily_schedule]["5"][:film3]][0]
-  end
-
-  should 'get information about a movie' do
-    result = "Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux-repas pour une personne comme beaucoup d'autres personnes seules qui connaissent la misère humaine, morale et sexuelle. Mais un jour il fait la rencontre de Tyler Durden, une sorte d'anarchiste entre gourou et philosophe qui prêche l'amour de son prochain.  Ensemble ils vont créer le Fight club, un lieu clandestin ou l'on peut retrouver sa virilité, l'échange et la communication."
-
-    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    movie = MoviesClient.get_movie_details(550)
-
-    assert_equal 'Fight Club', movie.title
-    assert_equal result, movie.overview
-  end
-
-  should 'get id from title' do
-    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    @movie = MoviesClient.get_id_from_title('Fight Club')
-
-    assert_equal 273169, @movie
-  end
-
-  should 'get the casting of a movie from his id' do
-    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    @cast = MoviesClient.get_movie_casts(550)
-
-    assert_equal 'Edward Norton', @cast[0][:name]
-    assert_equal 'The Narrator', @cast[0][:role]
-    assert_equal 'Brad Pitt', @cast[1][:name]
-    assert_equal 'Tyler Durden', @cast[1][:role]
-  end
-
-  should 'get the trailer of a movie from his id' do
-    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    link = MoviesClient.get_trailer(550)
-
-    assert_equal 'https://www.youtube.com/watch?v=1UqSD-jSC58', link
-  end
-
-  should 'get the credits of a movie from his id' do
-    MoviesClient.configure_api_key('7f0b035c164b74d6eec69ebcd8ff8d12')
-    @cred = MoviesClient.get_credits(550)
-
-    assert_equal 'David Fincher', @cred[:credit]["Director"][0]
-  end
-
   should 'get information about movie from the list' do
     list = {"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"], "DEUX JOURS UNE NUIT"=>["DEUX+JOURS+UNE+NUIT"], "DE TOUTES NOS FORCES"=>["DE+TOUTES+NOS+FORCES"], "QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"=>["QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F"], "RIO 2"=>["RIO+2"], "BARBECUE"=>["BARBECUE"], "LA LISTE DE MES ENVIES"=>["LA+LISTE+DE+MES+ENVIES"], "DRAGONS 2"=>["DRAGONS+2"], "MALEFIQUE"=>["MALEFIQUE"], "ON A FAILLI \u00CATRE AMIES"=>["ON+A+FAILLI+%C3%8ATRE+AMIES"], "LA RITOURNELLE"=>["LA+RITOURNELLE"], "LES VACANCES DU PETIT NICOLAS"=>["LES+VACANCES+DU+PETIT+NICOLAS"], "TRANSFORMERS L AGE DE L'EXTINCTION"=>["TRANSFORMERS+L+AGE+DE+L%27EXTINCTION"], "TRANSCENDANCE"=>["TRANSCENDANCE"], "PLANES 2"=>["PLANES+2"]}
 
@@ -133,17 +47,17 @@ class MoviesClientTest < Test::Unit::TestCase
     assert_equal result_expected, prog_with_info
   end
 
-  should 'do the all process' do
+  should 'do the whole process' do
     #Define result expected
     result_expected = {}
-    @result = MoviesClient.get_info('C:\Users\Simon\Desktop\Stage\GitHub\movies_client\data\PROG_GB_JUILLET_2014.ods', '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500')
+    @result = MoviesClient.get_info(File.join('..', 'data', 'PROG_GB_JUILLET_2014.ods'), '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500')
     assert_equal result_expected, @result
   end
 
-  should 'do the all process with day' do
+  should 'do the whole process with day' do
     #Define result expected
     result_expected = {@mois => "JUILLET", @cinema1 => "LES RHODOS VILLAGE", @cinema2 => "LE CHARMIEUX CHINAILLON", @daily_schedule => {"5"=>{:horaire1=>"17h30", :film1=>"SOUS LES JUPES DES FILLES", :date=>"SAM 5", :film2=>"BABYSITTING", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"BABYSITTING"}}, @result => {"SOUS LES JUPES DES FILLES"=>{:id=>273169, :title_list=>"SOUS LES JUPES DES FILLES", :title=>"Sous les jupes des filles", :synopsis=>"Paris. 28 premiers jours du printemps. 11 femmes.\r M\u00E8res de famille, femmes d'affaires, copines, ma\u00EEtresses ou \u00E9pouses...\r Toutes repr\u00E9sentent une facette de la femme d'aujourd'hui : Complexes, joyeuses, complex\u00E9es, explosives, insolentes, surprenantes... Bref, un \u00EAtre paradoxal, totalement d\u00E9boussol\u00E9, d\u00E9finitivement vivant, FEMMES tout simplement !", :release_date=>"2014-06-04", :trailer=>"https://www.youtube.com/watch?v=3JieZzOrMcQ", :genre=>["Com\u00E9die"], :poster=>"http://image.tmdb.org/t/p/w500//c2LlHIrhYZONH0QZ108Q0jyRHnF.jpg", :casting=>{0=>{:role=>"Lily", :name=>"Isabelle Adjani"}, 1=>{:role=>"Adeline", :name=>"Alice Bela\u00EFdi"}, 2=>{:role=>"Agathe", :name=>"Laetitia Casta"}}, :credits=>{:credit=>{"Director"=>["Audrey Dana"], "Writer"=>["Murielle Magellan", "Rapha\u00EBlle Desplechin", "Audrey Dana"]}}}, "BABYSITTING"=>{:id=>262551, :title_list=>"BABYSITTING", :title=>"Babysitting", :synopsis=>"Faute de baby-sitter pour le week-end, Marc Schaudel confie son fils Remy \u00E0 Franck, son employ\u00E9, \"un type s\u00E9rieux\" selon lui. Sauf que Franck a 30 ans ce soir et que R\u00E9my est un sale gosse capricieux. Au petit matin, Marc et sa femme Claire sont r\u00E9veill\u00E9s par un appel de la police. R\u00E9my et Franck ont disparu ! Au milieu de leur maison saccag\u00E9e, la police a retrouv\u00E9 une cam\u00E9ra. Marc et Claire d\u00E9couvrent hallucin\u00E9s les images tourn\u00E9es pendant la soir\u00E9e.", :release_date=>"2014-04-16", :genre=>["Com\u00E9die"], :poster=>"http://image.tmdb.org/t/p/w500//q2t1UVpyf8K7cAqyBz7Nl91gNl9.jpg", :casting=>{0=>{:role=>"Franck", :name=>"Philippe Lacheau"}, 1=>{:role=>"Sonia", :name=>"Alice David"}, 2=>{:role=>"Ernest", :name=>"Vincent Desagnat"}}, :credits=>{:credit=>{"Director"=>["Philippe Lacheau", "Nicolas Benamou"], "Scenario Writer"=>["Philippe Lacheau", "Pierre Lacheau", "Julien Arruti", "Tarek Boudali"]}}}}}
-    @result = MoviesClient.select_daily_program('C:\Users\Simon\Desktop\Stage\GitHub\movies_client\data\PROG_GB_JUILLET_2014.ods', '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500', '5')
+    @result = MoviesClient.select_daily_program(File.join('..', 'data', 'PROG_GB_JUILLET_2014.ods'), '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500', '5')
     assert_equal result_expected, @result
   end
 
