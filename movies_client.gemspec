@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "shoulda"
   spec.add_runtime_dependency "roo"
   spec.add_runtime_dependency "spreadsheet", "1.0.0"
-  spec.add_runtime_dependency "themoviedb"
+  spec.add_runtime_dependency "themoviedb", "0.0.24"
 end
