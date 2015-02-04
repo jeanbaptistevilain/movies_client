@@ -43,7 +43,7 @@ class TmdbClient
     Tmdb::Api.language("fr")
     trailer = Tmdb::Movie.trailers(id)
     link = ''
-    unless trailer["youtube"][0].nil?
+    unless trailer["youtube"].nil? || trailer["youtube"][0].nil?
       source = trailer["youtube"][0]["source"]
       link = 'https://www.youtube.com/watch?v='+source.to_s
     end
@@ -56,13 +56,15 @@ class TmdbClient
     credit = Tmdb::Movie.credits(id)
     credits = {}
     cred = {}
-    credit["crew"].each do |r|
-      key = r["job"]
-      value = r["name"]
-      if cred.has_key?(key)
-        cred[key] << value
-      else
-        cred.store(key, [value])
+    unless credit['crew'].nil?
+      credit["crew"].each do |r|
+        key = r["job"]
+        value = r["name"]
+        if cred.has_key?(key)
+          cred[key] << value
+        else
+          cred.store(key, [value])
+        end
       end
     end
     credits.store(:credit, cred)

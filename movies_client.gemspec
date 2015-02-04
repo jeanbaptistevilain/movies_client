@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = MoviesClient::VERSION
   spec.authors       = ["jeanbaptistevilain","SimonRonzani"]
   spec.email         = ["jbvilain@gmail.com","ronzani.simon@gmail.com"]
-  spec.description   = "specific parser for cinema and showtimes information"
+  spec.description   = "Small client that gathers data about movies using an input spreadsheet and the TMDB API"
   spec.summary       = "Parse ods file with roo, get information about movie from the TMDB API"
   spec.homepage      = "https://github.com/jeanbaptistevilain/movies_client"
   spec.license       = "MIT"

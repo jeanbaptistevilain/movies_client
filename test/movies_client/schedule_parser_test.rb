@@ -17,7 +17,6 @@ class ScheduleParserTest < Test::Unit::TestCase
     result = {"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"], "DEUX JOURS UNE NUIT"=>["DEUX+JOURS+UNE+NUIT"], "DE TOUTES NOS FORCES"=>["DE+TOUTES+NOS+FORCES"], "QU EST CE QU'ON A FAIT AU BON DIEU\u00A0?"=>["QU+EST+CE+QU%27ON+A+FAIT+AU+BON+DIEU%C2%A0%3F"], "RIO 2"=>["RIO+2"], "BARBECUE"=>["BARBECUE"], "LA LISTE DE MES ENVIES"=>["LA+LISTE+DE+MES+ENVIES"], "DRAGONS 2"=>["DRAGONS+2"], "MALEFIQUE"=>["MALEFIQUE"], "ON A FAILLI \u00CATRE AMIES"=>["ON+A+FAILLI+%C3%8ATRE+AMIES"], "LA RITOURNELLE"=>["LA+RITOURNELLE"], "LES VACANCES DU PETIT NICOLAS"=>["LES+VACANCES+DU+PETIT+NICOLAS"], "TRANSFORMERS L AGE DE L'EXTINCTION"=>["TRANSFORMERS+L+AGE+DE+L%27EXTINCTION"], "TRANSCENDANCE"=>["TRANSCENDANCE"], "PLANES 2"=>["PLANES+2"]}
 
     @result = ScheduleParser.parse_ods(@ods_path)
-    puts @result
     assert_equal daily_schedule ,               @result[:daily_schedule]
     assert_equal result,                        @result[:result]
     assert_equal result_expected ,              @result
@@ -39,7 +38,6 @@ class ScheduleParserTest < Test::Unit::TestCase
     result_expected = {:mois=>"JUILLET", :cinema1=>"LES RHODOS VILLAGE", :cinema2=>"LE CHARMIEUX CHINAILLON", :daily_schedule=>{"5"=>{:horaire1=>"17h30", :film1=>"SOUS LES JUPES DES FILLES", :date=>"SAM 5", :film2=>"BABYSITTING", :horaire2=>"21H", :film3=>"SOUS LES JUPES DES FILLES", :film4=>"BABYSITTING"}}, :result=>{"SOUS LES JUPES DES FILLES"=>["SOUS+LES+JUPES+DES+FILLES"], "BABYSITTING"=>["BABYSITTING"]}}
 
     @result = ScheduleParser.parse_ods_with_day(@ods_path, '5')
-    puts @result
     assert_equal result_expected ,              @result
     assert_equal 'JUILLET' ,                    @result[:mois]
     assert_equal 'LES RHODOS VILLAGE' ,         @result[:cinema1]

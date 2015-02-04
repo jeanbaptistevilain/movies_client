@@ -4,6 +4,8 @@ class MoviesObject
 
   include AttributeHelper
 
+  attr_accessor :result
+
   def initialize(hash)
     self.attributes = hash
   end

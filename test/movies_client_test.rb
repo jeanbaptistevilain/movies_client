@@ -50,7 +50,7 @@ class MoviesClientTest < Test::Unit::TestCase
   should 'do the whole process' do
     #Define result expected
     result_expected = {}
-    @result = MoviesClient.get_info(File.join('..', 'data', 'PROG_GB_JUILLET_2014.ods'), '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500')
+    @result = MoviesClient.get_info(File.join('..', 'data', 'PROG_GB_FEVRIER_2015.ods'), '7f0b035c164b74d6eec69ebcd8ff8d12', 'w500')
     assert_equal result_expected, @result
   end
 

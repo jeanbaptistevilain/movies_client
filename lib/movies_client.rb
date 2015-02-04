@@ -9,6 +9,7 @@ module MoviesClient
   @config = { :prog => "../../data/PROG_GB_JUILLET_2014.ods",
               :key => ""
   }
+  @logger = Logger.new(STDOUT)
 
   def self.configure_file_path(path)
     @config[:prog] = path
@@ -23,6 +24,7 @@ module MoviesClient
     listresult = {}
     list.each_pair do |k, v|
       id      = TmdbClient.get_id_from_title(v, @config[:key])
+      @logger.info "Retrieving data for movie #{v}"
       movie   = TmdbClient.get_movie_details(id, @config[:key])
       casting = TmdbClient.get_movie_casts(id, @config[:key])
       credits = TmdbClient.get_credits(id, @config[:key])
