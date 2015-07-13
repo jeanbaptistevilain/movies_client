@@ -24,7 +24,7 @@ class TmdbClient
       f = movie.length
       i = 0
       while i != f
-        unless movie[i][:release_date] == ''
+        unless movie[i][:release_date].nil? || movie[i][:release_date].empty?
           date = Date.parse movie[i][:release_date]
           if date.year == Date.today.year or date.year == Date.today.prev_year
             movie_id = movie[i][:id]
